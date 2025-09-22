@@ -1,6 +1,5 @@
 # Multi-Agent Blog Post Generator
-
-## Overview
+# Overview
 
 This project implements a multi-agent workflow using the CrewAI framework to automate the generation of blog posts. Leveraging large language models via Groq's API, the system orchestrates three specialized agents—Content Planner, Content Writer, and Editor—to produce structured, SEO-optimized Markdown articles on user-specified topics. The workflow ensures factual accuracy, engaging narrative, and polished output suitable for publication.
 
