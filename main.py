@@ -1,20 +1,17 @@
 import os
 from dotenv import load_dotenv
-from crewai import Agent, Task, Crew
-from langchain_community.chat_models import ChatGroq
-
+from crewai import Agent, Task, Crew 
+from langchain_groq import ChatGroq
 
 load_dotenv()  # Load environment variables from .env file
 groq_api_key = os.getenv("GROQ_API_KEY")
 
 llm = ChatGroq(
-    groq_api_key=groq_api_key,
-    model="mixtral-8x7b-32768"  # Groq supports Mixtral, LLaMA, etc.
+    api_key=groq_api_key,
+    model="groq/llama-3.3-70b-versatile"  # Updated to supported production model
 )
 
-
 # Define agents
-
 planner = Agent(
     role="Content Planner",
     goal="Plan engaging and factually accurate content on {topic}",
@@ -42,9 +39,7 @@ editor = Agent(
     llm=llm
 )
 
-
-#Define tasks
-
+# Define tasks
 plan = Task(
     description="Research trends, audience, SEO, and make a blog outline on {topic}.",
     expected_output="A structured outline with intro, body, conclusion, keywords, and references.",
@@ -63,13 +58,11 @@ edit = Task(
     agent=editor
 )
 
-
-#Create crew
-
+# Create crew
 crew = Crew(
     agents=[planner, writer, editor],
     tasks=[plan, write, edit],
-    verbose=2
+    verbose=True
 )
 
 if __name__ == "__main__":
